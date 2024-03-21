@@ -39,16 +39,18 @@ public class Main {
         Node nodeC = new Node("C");
         Node nodeD = new Node("D");
         graph.addEdge("A", "C", 10);
+        graph.addEdge("C", "B", 5);
         graph.addEdge("A", "B", 1);
         graph.addEdge("B", "D", 4);
         graph.addEdge("C", "D", 3);
         graph.addEdge("A", "D", 2);
+        graph.addEdge("D", "B", 3);
         graph.addEdge("B", "C", 1);
 
-        graph.edgeDown("A", "B");
+        graph.edgeDown("A", "B");  // Rendre le chemin entre A et B en travaux
         System.out.println(graph.isEdgeDown("A", "B"));
         graph.Dijkstra(nodeA.name);
-        graph.printPath("D"); // A C D
+        graph.printPath("B"); // A C D
         graph.printPath("C"); // A C
     }
 }
