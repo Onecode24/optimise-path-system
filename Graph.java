@@ -57,14 +57,17 @@ public class Graph {
         Node sourceNode = nodeMap.get(sourceName);
         Node destNode = nodeMap.get(destinationName);
         if (sourceNode == null || destNode == null) {
-            return false;
+            return true;
         }
         for (Edge edge : sourceNode.edgeList) {
             if (edge.destNode.name.equals(destNode.name)) {
-                return true;
+                if (edge.state == false)
+                    return true;
+                else
+                    return false;
             }
         }
-        return false;
+        return true;
     }
 
     private void print() {
@@ -88,6 +91,10 @@ public class Graph {
             while (adjacentIterator.hasNext()) {
                 String node = adjacentIterator.next();
                 System.out.print("  " + node + " " + hashMap.get(node));
+                if (isEdgeDown(adjacentNode, node))
+                    System.out.print(" down");
+                System.out.println();
+
             }
         }
     }
@@ -120,6 +127,10 @@ public class Graph {
             Node node = getNode(minPriorityQueue.extractMin().pathname);
             for (Edge edge : node.edgeList) {
                 Node dest = edge.destNode;
+                if (!dest.state) //check for disabled vertices
+                    continue;
+                if (isEdgeDown(node.name, dest.name)) //check for disabled edges
+                    continue;
                 double weight = edge.distance;
                 if (weight < 0)
                     throw new RuntimeException("Graph has negative edge");
@@ -160,7 +171,7 @@ public class Graph {
     }
 
     public void edgeDown(String source, String destination) {
-        Iterator<Pair> iterator = edgeList.iterator();
+        /*Iterator<Pair> iterator = edgeList.iterator();
         int flag = 1;
         if (edgeList.size() != 0) {
             while (iterator.hasNext()) {
@@ -172,11 +183,23 @@ public class Graph {
             }
         }
         if (flag == 1)
-            edgeList.add(new Pair(source, destination));
+            edgeList.add(new Pair(source, destination)); */
+        // get Edge from source to destination and set state to false
+        Iterator<Edge> listIterator = nodeMap.get(source).edgeList.listIterator();
+        int i = 0;
+        while (listIterator.hasNext()) {
+            Edge edge = listIterator.next();
+            if (destination.equals(edge.destNode.name)) {
+                nodeMap.get(source).edgeList.get(i).state = false;
+                break;
+            }
+            i++;
+        }
+
     }
 
     public void edgeUp(String source, String destination) {
-        Iterator<Pair> iterator = edgeList.iterator();
+        /* Iterator<Pair> iterator = edgeList.iterator();
         int flag = 0;
         Pair pair = null;
         if (edgeList.size() != 0) {
@@ -189,7 +212,18 @@ public class Graph {
             }
         }
         if (flag == 1)
-            edgeList.remove(pair);
+            edgeList.remove(pair); */
+        // get Edge from source to destination and set state to true
+        Iterator<Edge> listIterator = nodeMap.get(source).edgeList.listIterator();
+        int i = 0;
+        while (listIterator.hasNext()) {
+            Edge edge = listIterator.next();
+            if (destination.equals(edge.destNode.name)) {
+                nodeMap.get(source).edgeList.get(i).state = true;
+                break;
+            }
+            i++;
+        }
     }
 
     public void deleteEdge(String sourceName, String destinationName) {

@@ -9,8 +9,8 @@ public class Node {
     public Boolean state;
 
 
-    public Node(String nm) {
-        name = nm;
+    public Node(String name) {
+        this.name = name;
         edgeList = new LinkedList<Edge>();
         state = true;
         reset();
