@@ -1,13 +1,13 @@
 public class Heap {
-    Path[] path;
+    Path[] paths;
     int heap_size;
     int numberOfNode;
 
     public Heap(int numberOfNode){
         this.numberOfNode = numberOfNode;
         heap_size = 0;
-        path = new Path[this.numberOfNode+1];
-        path[0] = new Path("null", (double) Integer.MIN_VALUE);
+        paths = new Path[this.numberOfNode+1];
+        paths[0] = new Path("null", (double) Integer.MIN_VALUE);
     }
 
     public  int size(){
@@ -28,9 +28,9 @@ public class Heap {
 
     private void swap(int i, int j) {
         Path temp;
-        temp = path[i];
-        path[i] = path[j];
-        path[j] = temp;
+        temp = paths[i];
+        paths[i] = paths[j];
+        paths[j] = temp;
     }
 
     private void minHeapify(int i) {
@@ -46,11 +46,11 @@ public class Heap {
             flag = false;
         }
         if (!flag && heap_size > 0) {
-            if(path[l].distance < path[i].distance)
+            if(paths[l].distance < paths[i].distance)
                 smallest = l;
             else
                 smallest = i;
-            if(path[r].distance < path[smallest].distance)
+            if(paths[r].distance < paths[smallest].distance)
                 smallest = r;
             if(smallest !=i) {
                 swap(i, smallest);
@@ -59,17 +59,17 @@ public class Heap {
         }
     }
     public void insert(Path p) {
-        path[++heap_size] = p;
+        paths[++heap_size] = p;
         int i = heap_size;
         int parent = parent(i);
-        while (path[i].distance < path[parent].distance) {
+        while (paths[i].distance < paths[parent].distance) {
             swap(i, parent);
             i = parent;
         }
     }
     public Path extractMin() {
-        Path root = path[1];
-        path[1] = path[heap_size--];
+        Path root = paths[1];
+        paths[1] = paths[heap_size--];
         minHeapify(1);
         return root;
     }

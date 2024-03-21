@@ -1,9 +1,9 @@
 public class Edge {
-    public Node destName;
+    public Node destNode;
     public double distance;
 
     public Edge(Node node, double dist){
-        destName = node;
+        destNode = node;
         distance = dist;
     }
 }

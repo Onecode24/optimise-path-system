@@ -3,19 +3,21 @@ import java.util.List;
 
 public class Node {
     public String name;
-    public List<Edge> adj;
-    public Node prev;
+    public List<Edge> edgeList;
+    public Node previous;
     public Double dist;
+    public Boolean state;
 
 
     public Node(String nm) {
         name = nm;
-        adj = new LinkedList<Edge>();
+        edgeList = new LinkedList<Edge>();
+        state = true;
         reset();
     }
     public void reset() {
         dist = (double) Graph.INFINITY;
-        prev = null;
+        previous = null;
     }
 
 }
