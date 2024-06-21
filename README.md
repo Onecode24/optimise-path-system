@@ -9,7 +9,7 @@ We can simulate a case when one of the Edge is blocked (like traffic accident ðŸ
 ## How to run with IntelliJ IDEA
 1. Clone the project
 2. Open the project with IntelliJ IDEA
-3. Run the project
+3. Run the project by clicking on the green arrow in the top right corner
 
 ## How to run with Command Line
 1. Clone the project
